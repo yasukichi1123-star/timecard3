@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>QR出退勤</title>
+<script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+
+<h2>QRコード 出退勤打刻</h2>
+
+<button onclick="startScan()">QRコードを読み取る</button>
+<div id="reader" style="width:300px;margin:auto;"></div>
+
+<script>
+let qr;
+
+function startScan() {
+    qr = new Html5Qrcode("reader");
+    qr.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        decodedText => {
+            alert("読み取り成功：" + decodedText);
+            qr.stop();
+        }
+    ).catch(err => {
+        alert("カメラ起動失敗：" + err);
+    });
+}
+</script>
+
+</body>
+</html>
